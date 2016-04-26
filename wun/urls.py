@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+admin.autodiscover()
+
 urlpatterns = [
+ 	# Do NOT add $ at the end of the pattern!
 	url(r'^admin/', include(admin.site.urls)),
-	url(r'^$', 'showevents.views.home', name='home'),
+	url(r'^showevents/', include('showevents.urls')),
 ]
