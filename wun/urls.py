@@ -19,7 +19,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
- 	# Do NOT add $ at the end of the pattern!
+	# Do NOT add $ at the end of the pattern!
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^showevents/', include('showevents.urls')),
 ]

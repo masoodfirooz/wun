@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMrUEmuDfhk1ZsY2M4pwy-lBHfoXFcKis&callback=initMap"
-    async defer></script>
-  </body>
+	<head>
+		<title>Simple Map</title>
+		<meta name="viewport" content="initial-scale=1.0">
+		<meta charset="utf-8">
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			#map {
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>{{ events }}</h1>
+		<div id="map"></div>
+		<script>
+			function initMap() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(userPosition) {
+						var map = new google.maps.Map(document.getElementById('map'), {
+							center: {lat: userPosition.coords.latitude, lng: userPosition.coords.longitude},
+							zoom: 8
+						});
+						var coords = JSON.parse('{{ coords | safe}}');
+						for (var i = 0; i < coords.length; i++) {
+							var coord = coords[i];
+
+							var myLatLng = {lat: coord.lat, lng: coord.lng};
+							var marker = new google.maps.Marker({
+								position: myLatLng,
+								map: map,
+								title: 'Hello World!'
+							});
+						}
+					});
+				} else {
+					// FIXME, if user denies location
+					console.log("Geolocation is not supported by this browser.");
+				}
+			}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMrUEmuDfhk1ZsY2M4pwy-lBHfoXFcKis&callback=initMap"
+		async defer></script>
+	</body>
 </html>
