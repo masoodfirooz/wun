@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Simple Map</title>
+		<title>wun</title>
 		<meta name="viewport" content="initial-scale=1.0">
 		<meta charset="utf-8">
 		<style>
@@ -16,7 +16,6 @@
 		</style>
 	</head>
 	<body>
-		<h1>{{ events }}</h1>
 		<div id="map"></div>
 		<script>
 			function initMap() {
@@ -29,18 +28,17 @@
 						var coords = JSON.parse('{{ coords | safe}}');
 						for (var i = 0; i < coords.length; i++) {
 							var coord = coords[i];
-
 							var myLatLng = {lat: coord.lat, lng: coord.lng};
 							var marker = new google.maps.Marker({
 								position: myLatLng,
 								map: map,
-								title: 'Hello World!'
+								title: ''
 							});
 						}
 					});
 				} else {
 					// FIXME, if user denies location
-					console.log("Geolocation is not supported by this browser.");
+					console.log('Geolocation is not supported by this browser.');
 				}
 			}
 		</script>
